@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Photon.Pun;
 
 [Serializable]
 public class TankManager
@@ -16,11 +17,12 @@ public class TankManager
     private TankShooting m_Shooting;
     private GameObject m_CanvasGameObject;
 
-
+    private PhotonView m_view;
     public void Setup()
     {
         m_Movement = m_Instance.GetComponent<TankMovement>();
         m_Shooting = m_Instance.GetComponent<TankShooting>();
+        m_view = m_Instance.GetComponent<PhotonView>();
         m_CanvasGameObject = m_Instance.GetComponentInChildren<Canvas>().gameObject;
 
         m_Movement.m_PlayerNumber = m_PlayerNumber;
