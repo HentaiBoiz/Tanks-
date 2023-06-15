@@ -17,20 +17,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         base.OnConnectedToMaster();
         Debug.Log("Connected to Master");
-        PhotonNetwork.JoinLobby();
-    }
-
-    public override void OnJoinedLobby()
-    {
-        base.OnJoinedLobby();
-        Debug.Log("Joined Lobby");
         SceneManager.LoadScene("LobbyScene");
+
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
