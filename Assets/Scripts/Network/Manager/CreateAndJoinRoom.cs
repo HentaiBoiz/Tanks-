@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using TMPro;
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
 
 public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
 {
@@ -30,5 +31,10 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
         PhotonNetwork.JoinRoom(joinInput.text);
         Debug.Log("Room " + joinInput.text + " joined");
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

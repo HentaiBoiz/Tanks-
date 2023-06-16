@@ -1,28 +1,35 @@
 ﻿using System;
 using UnityEngine;
-using Photon.Pun;
+using FishNet.Object;
+
 
 [Serializable]
-public class TankManager
+public class TankManager : NetworkBehaviour
 {
-    public Color m_PlayerColor;            
-    public Transform m_SpawnPoint;         
-    [HideInInspector] public int m_PlayerNumber;             
+    public Color m_PlayerColor;
+    public Transform m_SpawnPoint;
+    [HideInInspector] public int m_PlayerNumber;
     [HideInInspector] public string m_ColoredPlayerText;
-    [HideInInspector] public GameObject m_Instance;          
-    [HideInInspector] public int m_Wins;                     
+    [HideInInspector] public GameObject m_Instance;
+    [HideInInspector] public int m_Wins;
 
 
-    private TankMovement m_Movement;       
+    private TankMovement m_Movement;
     private TankShooting m_Shooting;
     private GameObject m_CanvasGameObject;
 
-    private PhotonView m_view;
+    private void Update()
+    {
+        Setup();
+    }
+
+    [Client(RequireOwnership = true)]
     public void Setup()
     {
+        if (!base.IsOwner)
+            return;
         m_Movement = m_Instance.GetComponent<TankMovement>();
         m_Shooting = m_Instance.GetComponent<TankShooting>();
-        m_view = m_Instance.GetComponent<PhotonView>();
         m_CanvasGameObject = m_Instance.GetComponentInChildren<Canvas>().gameObject;
 
         m_Movement.m_PlayerNumber = m_PlayerNumber;

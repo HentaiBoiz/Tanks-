@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using FishNet.Object;
 
-public class CameraControl : MonoBehaviour
+public class CameraControl : NetworkBehaviour
 {
     public float m_DampTime = 0.2f;                 
     public float m_ScreenEdgeBuffer = 4f;           
@@ -11,7 +12,13 @@ public class CameraControl : MonoBehaviour
     private Camera m_Camera;                        
     private float m_ZoomSpeed;                      
     private Vector3 m_MoveVelocity;                 
-    private Vector3 m_DesiredPosition;              
+    private Vector3 m_DesiredPosition;
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        //if
+    }
 
 
     private void Awake()

@@ -19,6 +19,6 @@ public class RoomProfileUIBtn : MonoBehaviour
 
     public void OnThisRoomClick()
     {
-        Photon_Room_Manager.Instance.SetCustomInputField(roomName.text);
+        
     }
 }

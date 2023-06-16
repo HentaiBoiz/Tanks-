@@ -1,24 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
+
 using UnityEngine.SceneManagement;
 
-public class Launcher : MonoBehaviourPunCallbacks
+public class Launcher : MonoBehaviour
 {
+    [SerializeField]
+    private float delayTime = 1.2f;
+    [SerializeField]
+    private string scene_Name;
+
+    private float timeElapsed;
+
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Connecting to Master");
-        PhotonNetwork.ConnectUsingSettings();
+
     }
 
-    public override void OnConnectedToMaster()
+    private void Update()
     {
-        base.OnConnectedToMaster();
-        Debug.Log("Connected to Master");
-        SceneManager.LoadScene("LobbyScene");
-
+        timeElapsed += Time.deltaTime;
+        if(timeElapsed > delayTime)
+        {
+            SceneManager.LoadScene(scene_Name);
+        }
     }
 
 }
