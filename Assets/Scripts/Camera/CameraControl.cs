@@ -1,24 +1,17 @@
 ﻿using UnityEngine;
-using FishNet.Object;
 
-public class CameraControl : NetworkBehaviour
+public class CameraControl : MonoBehaviour
 {
-    public float m_DampTime = 0.2f;                 
-    public float m_ScreenEdgeBuffer = 4f;           
-    public float m_MinSize = 6.5f;                  
-    [HideInInspector] public Transform[] m_Targets; 
+    public float m_DampTime = 0.2f;                 // Approximate time for the camera to refocus.
+    public float m_ScreenEdgeBuffer = 4f;           // Space between the top/bottom most target and the screen edge.
+    public float m_MinSize = 6.5f;                  // The smallest orthographic size the camera can be.
+    [HideInInspector] public Transform[] m_Targets; // All the targets the camera needs to encompass.
 
 
-    private Camera m_Camera;                        
-    private float m_ZoomSpeed;                      
-    private Vector3 m_MoveVelocity;                 
-    private Vector3 m_DesiredPosition;
-
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        //if
-    }
+    private Camera m_Camera;                        // Used for referencing the camera.
+    private float m_ZoomSpeed;                      // Reference speed for the smooth damping of the orthographic size.
+    private Vector3 m_MoveVelocity;                 // Reference velocity for the smooth damping of the position.
+    private Vector3 m_DesiredPosition;              // The position the camera is moving towards.
 
 
     private void Awake()
@@ -29,7 +22,10 @@ public class CameraControl : NetworkBehaviour
 
     private void FixedUpdate()
     {
+        // Move the camera towards a desired position.
         Move();
+
+        // Change the size of the camera based.
         Zoom();
     }
 
@@ -79,6 +75,7 @@ public class CameraControl : NetworkBehaviour
         float requiredSize = FindRequiredSize();
         m_Camera.orthographicSize = Mathf.SmoothDamp(m_Camera.orthographicSize, requiredSize, ref m_ZoomSpeed, m_DampTime);
     }
+
 
     private float FindRequiredSize()
     {
